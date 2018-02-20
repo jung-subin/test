@@ -2,5 +2,13 @@ FROM openjdk:8
 
 MAINTAINER Madan Narra <narra.madan@outlook.com>
 
-COPY ./build/libs/spring-boot-whoami.jar spring-boot-whoami.jar
-CMD java -jar spring-boot-whoami.jar
+VOLUME /data
+WORKDIR /data
+
+RUN mkdir /data/video
+RUN mkdir /data/log
+
+ADD http://sbplay.duckdns.org:9080/app/apiServer.jar /data/apiServer.jar
+ADD http://sbplay.duckdns.org:9080/app/hp_application.properties /data/application.properties
+
+CMD java -jar /data/apiServer.jar
